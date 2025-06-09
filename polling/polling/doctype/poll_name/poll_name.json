@@ -1,0 +1,75 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-06-03 10:46:27.027022",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "poll_question",
+  "details",
+  "status",
+  "allow_guest_to_vote",
+  "poll_options",
+  "voter_ip_address"
+ ],
+ "fields": [
+  {
+   "fieldname": "poll_question",
+   "fieldtype": "Data",
+   "label": "poll_question"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "status ",
+   "options": "Open\nClose"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_guest_to_vote",
+   "fieldtype": "Check",
+   "label": "Allow Guest to Vote"
+  },
+  {
+   "fieldname": "poll_options",
+   "fieldtype": "Table",
+   "label": "Poll options",
+   "options": "Poll Options"
+  },
+  {
+   "fieldname": "voter_ip_address",
+   "fieldtype": "Data",
+   "label": "voter ip address "
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Small Text",
+   "label": "Poll Details"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-06-09 16:01:46.319061",
+ "modified_by": "Administrator",
+ "module": "polling",
+ "name": "Poll Name",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,63 @@
+# Copyright (c) 2025, amol and contributors
+# For license information, please see license.txt
+
+import frappe
+from frappe.model.document import Document
+
+
+class PollVote(Document):
+
+    @frappe.whitelist()
+def submit_or_update_poll_vote(poll_name, selections):
+    """
+    Submits new votes or updates existing votes for a given poll by the current user.
+
+    Args:
+        poll_name (str): The name (ID) of the Poll Name doctype.
+        selections (list): A list of dictionaries, where each dict has:
+                            {
+                                'option': 'Option Text',
+                                'reason': 'Reason for selection'
+                            }
+    Returns:
+        dict: Success message or error.
+    """
+    current_user = frappe.session.user
+
+    if not current_user or current_user == "Guest":
+        frappe.throw("Please log in to cast or update your vote.")
+
+    try:
+        # Step 1: Delete existing votes for this user and poll
+        # This simplifies the logic: clear old, then create new.
+        # Alternative: Fetch existing and update, but more complex for multiple selections.
+        frappe.db.delete(
+            "Poll Vote",
+            {
+                "user": current_user,
+                "poll_name": poll_name
+            }
+        )
+
+        # Step 2: Create new Poll Vote documents for each selected option
+        for selection in selections:
+            if selection.get("option"): # Ensure option is not empty
+                doc = frappe.new_doc("Poll Vote")
+                doc.user = current_user
+                doc.poll_name = poll_name
+                doc.option = selection["option"]
+                # Assuming you have a 'reason' field in Poll Vote DocType
+                # BASED ON YOUR PROVIDED DOCTYPE, YOU DON'T HAVE A 'REASON' FIELD.
+                # YOU WILL NEED TO ADD IT IF YOU WANT TO STORE REASONS.
+                # For now, I'll add it as a placeholder.
+                doc.reason = selection.get("reason", "") # Get reason, default to empty string
+                doc.insert(ignore_permissions=True) # Use ignore_permissions if user doesn't have create perm on Poll Vote
+                                                  # Otherwise, frappe.db.insert can also be used if not validating defaults
+        frappe.db.commit() # Commit changes to the database
+
+        return {"message": "Your vote has been successfully updated/submitted."}
+
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "Poll Vote Submission Error")
+        frappe.db.rollback()
+        frappe.throw(f"An error occurred while saving your vote: {e}")

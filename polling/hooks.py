@@ -1,8 +1,8 @@
 app_name = "polling"
-app_title = "Polling"
-app_publisher = "Sanjukta barik"
-app_description = "Polling app for Frappe framework"
-app_email = "sanjukta.barik@techbirdit.in"
+app_title = "polling"
+app_publisher = "amol"
+app_description = "polling app for products"
+app_email = "amol.sane@techbirdit.in"
 app_license = "mit"
 
 # Apps
@@ -15,7 +15,7 @@ app_license = "mit"
 # 	{
 # 		"name": "polling",
 # 		"logo": "/assets/polling/logo.png",
-# 		"title": "Polling",
+# 		"title": "polling",
 # 		"route": "/polling",
 # 		"has_permission": "polling.api.permission.has_app_permission"
 # 	}
@@ -70,6 +70,9 @@ app_license = "mit"
 # automatically create page for each record of this doctype
 # website_generators = ["Web Page"]
 
+# automatically load and sync documents of this doctype from downstream apps
+# importable_doctypes = [doctype_1]
+
 # Jinja
 # ----------
 
@@ -123,14 +126,6 @@ app_license = "mit"
 #
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
-
-# DocType Class
-# ---------------
-# Override standard doctype classes
-
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
 # }
 
 # Document Events
